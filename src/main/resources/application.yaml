@@ -1,0 +1,43 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: banking-api-gateway
+
+# Eureka properties
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+# Zuul properties
+zuul:
+  host:
+    socket-timeout-millis: 30000
+    connect-timeout-millis: 60000
+  routes:
+    account-service:
+      path: /account-service/**
+      service-id: ACCOUNT-SERVICE
+      strip-prefix: true
+    transaction-service:
+      path: /transaction-service/**
+      service-id: TRANSACTION-SERVICE
+      strip-prefix: true
+    notification-service:
+      path: /notification-service/**
+      service-id: NOTIFICATION-SERVICE
+      strip-prefix: true
+    audit-service:
+      path: /audit-service/**
+      service-id: AUDIT-SERVICE
+      strip-prefix: true
+    fraud-detection-service:
+      path: /fraud-detection-service/**
+      service-id: FRAUD-DETECTION-SERVICE
+      strip-prefix: true
